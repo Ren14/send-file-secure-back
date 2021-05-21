@@ -1,0 +1,33 @@
+version: "3"
+services:
+    app:
+      image: renzoontivero91/send-file-secure-back:1.0
+      container_name: send-file-secure-back
+      environment:
+        DBURI: "mysql://root:renzo91@db:3306/sendfiles"
+        BASEURL: "http://localhost:1338"
+      ports:
+        - '1337:1337'
+      networks:
+        - sendfiles
+      depends_on:
+        - db
+      volumes:
+        - '/home/sitrack/Development/send-file-secure-back/:/usr/src/app'
+    db:
+      image: mysql:5.7
+      container_name: send-file-secure-db
+      environment:
+        MYSQL_DATABASE: sendfiles
+        MYSQL_ROOT_PASSWORD: renzo91
+      networks:
+        - sendfiles
+      volumes:
+        - 'send-file-data:/var/lib/mysql'
+      ports:
+        - '3306:3306'
+volumes:
+    send-file-data: null
+networks:
+    sendfiles:
+      driver: bridge
