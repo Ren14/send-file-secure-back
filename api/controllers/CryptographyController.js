@@ -5,7 +5,7 @@
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
 
-const NodeRSA = require('node-rsa'); 
+const NodeRSA = require('node-rsa');
 const fs = require('fs');
 const crypto = require('crypto');
 
