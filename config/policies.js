@@ -16,7 +16,7 @@ module.exports.policies = {
   * (`true` allows public access)                                            *
   *                                                                          *
   ***************************************************************************/
-
+ 
   '*': ['isAuthorized'], // Everything resctricted here
 
   'UserController': { // Name of your controller
