@@ -20,6 +20,7 @@ module.exports = {
         .then((response) => {               
             if(response.status == 200 && response.data.tx_hash !== undefined){                                        
                 return res.status(200).json({
+                    status: 'success',
                     infoStamp : response.data
                 });
             } else {
@@ -41,8 +42,10 @@ module.exports = {
         const urlVerify = sails.config.custom.tsaUrl + 'verify/'+comprobanteOTS+'/'+hashFile;
         
         await axios.get(urlVerify)
-        .then( response => {      
+        .then( response => { 
+               
             return res.status(200).json({
+                status: 'success',
                 verifyInfo: response.data
             });
         })

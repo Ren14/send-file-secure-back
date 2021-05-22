@@ -197,7 +197,8 @@ module.exports = {
         objectCrypto.update(file_buffer);
         const hash = objectCrypto.digest('hex');
         return res.status(200).json({
-            hash: hash
+            status: 'success',
+            hashFile: hash
         })
 
 
