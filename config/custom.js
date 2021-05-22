@@ -108,5 +108,7 @@
   ipfsPort: '5001',
   ipfsGateway: 'https://ipfs.infura.io/ipfs/',
   tsaUrl: 'https://tsa-api-rest.herokuapp.com/rinkeby/',
+  userEmail: 'swf@ultimamillasa.com.ar',
+  passEmail: 'dukiturulo18',
 
 };

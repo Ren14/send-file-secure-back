@@ -48,4 +48,10 @@ module.exports.routes = {
   'POST   /api/v1/user/login' : 'UserController.login',
   'POST   /api/v1/user' : 'UserController.add',
   'POST   /api/v1/user/validarToken' : 'UserController.validarToken',
+
+
+  //=========================================================
+  //===================== EMAIL==============================
+  //=========================================================
+  'POST   /api/v1/email/send' : 'EmailController.send',
 };

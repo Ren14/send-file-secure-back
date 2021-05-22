@@ -48,8 +48,8 @@ module.exports.datastores = {
     *    (See https://sailsjs.com/config/datastores for help.)                 *
     *                                                                          *
     ***************************************************************************/
-    adapter: 'sails-mysql',
-    url: process.env.DBURI,
+    //adapter: 'sails-mysql',
+    //url: process.env.DBURI,
 
   },
 

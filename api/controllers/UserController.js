@@ -73,53 +73,42 @@
     async login(req, res) {
         const data = req.body;
 
-        if (!data.email || !data.password) return res.send({ status: 'error', messge: 'El campo email y password son requeridos', });
+        if (!data.email || !data.password) return res.badRequest('El campo email y password son requeridos');
 
-        Usuario.findOne({ email: data.email })
+        User.findOne({ email: data.email })
             .then((user) => {
-                if (!user) return res.notFound();
+                if (!user) return res.badRequest('Usuario no encontrado');
                 
-                Usuario.comparePassword(data.password, user.encryptedPassword)
+                User.comparePassword(data.password, user.encryptedPassword)
                     .then( async () => {
                         console.log("Login success to", data.email);
-
-                        // Obtengo el estado del token                        
-                        var user = await Usuario.findOne({ email: data.email });
                         
                         return res.send({
                             status: 'success' ,
-                            token: jwToken.issue({ id: user.id }),
-                            usuario_id : user.id, // Retorno el ID del Usuario
-                            emailStatus: user.emailStatus // Retorno el estado del token
+                            token: jwToken.issue({ id: user.id }),                            
                         })
                     })
                     .catch((err) => {
                         sails.log.error(err);
-                        return res.send({ status: 'error', messge: err, });
+                        return res.badRequest( err );
                     });
             })
             .catch((err) => {
                 sails.log.error(err);
-                return res.send({ status: 'error', messge: err, });
+                return res.badRequest( err );
             });
     },
     
     async confirmarEmail(req, res) {
 
         // If no token was provided, this is automatically invalid.
-        if (!req.query.token) {
-            console.log("El token no existe");
-            return res.redirect(process.env.FRONTURL + '/afterVerifyError' || 'http://mdzfidu.umbot.com.ar/afterVerifyError');
-        }
+        if (!req.query.token) return res.badRequest( 'Se esperaba el parametro token' );
 
         // Get the user with the matching email token.
         var user = await Usuario.findOne({ emailProofToken: req.query.token });
 
         // If no such user exists, or their token is expired, bail.
-        if (!user || user.emailProofTokenExpiresAt <= Date.now()) {
-            console.log("El token expiró");
-            return res.redirect(process.env.FRONTURL + '/afterVerifyError' || 'http://mdzfidu.umbot.com.ar/afterVerifyError');
-        }
+        if (!user || user.emailProofTokenExpiresAt <= Date.now()) return res.badRequest( 'El token ha expirado' );
 
         if (user.emailStatus === 'unconfirmed') {
             //  ┌─┐┌─┐┌┐┌┌─┐┬┬─┐┌┬┐┬┌┐┌┌─┐  ╔═╗╦╦═╗╔═╗╔╦╗ ╔╦╗╦╔╦╗╔═╗  ╦ ╦╔═╗╔═╗╦═╗  ┌─┐┌┬┐┌─┐┬┬
@@ -138,10 +127,13 @@
             });
             
             // Si el token se validó bien, te redirijo al login del front
-            return res.redirect(process.env.FRONTURL + '/afterVerifyOk' || 'http://mdzfidu.umbot.com.ar/afterVerifyOk');
+            return res.status(200).json({
+                status: 'success',
+                msg: 'El usuario fue validado con exito'
+            });
 
         } else {
-            return res.redirect(process.env.FRONTURL + '/afterVerifyError' || 'http://mdzfidu.umbot.com.ar/afterVerifyError');            
+            return res.badRequest( 'El mail ya fue confirmado' );           
         }
 
     },
@@ -153,12 +145,12 @@
 
     // Retorno un usuario específico
     async get(req, res){
-        if(!req.params.usuario_id) res.send({ status: 'error', messge: 'Falta el campo usuario_id', });
+        if(!req.params.usuario_id) return res.badRequest('Falta el campo usuario_id');
 
         const user = await Usuario.find({ id : req.params.usuario_id});
 
-        return res.send({
-            status: 'status',
+        return res.status(200).json({
+            status: 'success',
             user: user,
         });
     },

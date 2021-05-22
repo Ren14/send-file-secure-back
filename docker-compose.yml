@@ -6,6 +6,8 @@ services:
       environment:
         DBURI: "mysql://root:renzo91@db:3306/sendfiles"
         BASEURL: "http://localhost:1338"
+        EMAIL: "swf@ultimamillasa.com.ar"
+        PASSWORDEMAIL: "dukiturulo18"
       ports:
         - '1337:1337'
       networks:

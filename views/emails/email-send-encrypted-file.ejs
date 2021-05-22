@@ -1,0 +1,11 @@
+<% /* Note: This is injected into `views/layouts/layout-email.ejs` */ %>
+<p style="margin-bottom: 25px;">Hola <%= userNameFrom %></p>
+<p style="margin-bottom: 25px;"><b><%= userNameTo %></b> te envió un archivo digital.</p>
+
+<div style="margin-bottom: 25px; text-align: center;">
+  <a style="background-color: #00ACC4; display: inline-block; font-size: 1.1em; color: #fff; padding: 10px 35px 10px; font-weight: 500; text-decoration: none; border-radius: 7px;" href="<%= url.resolve(sails.config.custom.baseUrl,'/view-file/')+emailTo+'/'+fileId %>">Ver archivo</a>
+</div>
+<p style="margin-bottom: 25px;">Si tienes algún problema, copia y pega este link en tu navegador: <a style="color: #00ACC4; word-wrap: break-word;" href="<%= url.resolve(sails.config.custom.baseUrl,'/view-file/')+emailTo+'/'+fileId %>"><%= url.resolve(sails.config.custom.baseUrl,'/view-file/')+emailTo+'/'+fileId  %></a>
+
+<p style="margin-bottom: 5px;">Atentamente</p>
+<p style="margin-top: 0px;">Ultima Milla Sa</p>
