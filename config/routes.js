@@ -13,19 +13,19 @@ module.exports.routes = {
   //  ╔═╗╔═╗╦  ╔═╗╔╗╔╔╦╗╔═╗╔═╗╦╔╗╔╔╦╗╔═╗
   //  ╠═╣╠═╝║  ║╣ ║║║ ║║╠═╝║ ║║║║║ ║ ╚═╗
   //  ╩ ╩╩  ╩  ╚═╝╝╚╝═╩╝╩  ╚═╝╩╝╚╝ ╩ ╚═╝
-  
-  
+
+
   //=========================================================
   //===================== IPFS ==============================
   //=========================================================
-  'POST   /api/v1/ipfs/upload-encrypted-file':            'IpfsController.uploadEncryptedFile',  
-  'POST   /api/v1/ipfs/download-file':                    'IpfsController.downloadFile',  
-  
+  'POST   /api/v1/ipfs/upload-encrypted-file':            'IpfsController.uploadEncryptedFile',
+  'POST   /api/v1/ipfs/download-file':                    'IpfsController.downloadFile',
+
   //=========================================================
   //===================== FILE MANAGEMENT ===================
   //=========================================================
   'POST   /api/v1/file-management/upload-file':           'FileManagementController.uploadFile',
-  
+
   //=========================================================
   //===================== CRYPTOGRAPHY ======================
   //=========================================================
@@ -41,7 +41,7 @@ module.exports.routes = {
   //=========================================================
   'POST   /api/v1/time-stamp/stamp':                     'TimeStampController.stamp',
   'POST   /api/v1/time-stamp/verify':                    'TimeStampController.verify',
-  
+
   //=========================================================
   //===================== USER ==============================
   //=========================================================
@@ -54,4 +54,9 @@ module.exports.routes = {
   //===================== EMAIL==============================
   //=========================================================
   'POST   /api/v1/email/send' : 'EmailController.send',
+
+  //=========================================================
+  //===================== HEALTH CHECK ======================
+  //=========================================================
+  'GET /api/health-check' : 'HealthCheckController.getStatus',
 };
