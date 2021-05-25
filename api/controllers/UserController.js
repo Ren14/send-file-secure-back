@@ -82,9 +82,15 @@
                 User.comparePassword(data.password, user.encryptedPassword)
                     .then( async () => {
                         console.log("Login success to", data.email);
-                        
-                        return res.send({
+                        let roles = [];
+                        roles.push("ROLE_ADMIN"); // Esto es para el ejemplo con React que estoy haciendo
+                        roles.push("ROLE_MODERATOR"); // Esto es para el ejemplo con React que estoy haciendo
+                        return res.status(200).json({
                             status: 'success' ,
+                            id: user.id,
+                            username: user.email,
+                            email: user.email,
+                            roles: roles,
                             token: jwToken.issue({ id: user.id }),                            
                         })
                     })

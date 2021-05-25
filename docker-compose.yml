@@ -15,7 +15,7 @@ services:
       depends_on:
         - db
       volumes:
-        - '/home/sitrack/Development/send-file-secure-back/:/usr/src/app'
+        - '~/Development/send-file-secure-back/:/usr/src/app'
     db:
       image: mysql:5.7
       container_name: send-file-secure-db
